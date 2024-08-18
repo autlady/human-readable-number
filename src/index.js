@@ -58,7 +58,13 @@ module.exports = function toReadable (number) {
         const second = num[1];
         const third = num[2];
         if (number >= 100 && number < 1000) {
-            return strings[first] + " hundred " + dozens[second] + " " + strings[third];
+            if (second === "0") {
+                return strings[first] + " hundred " + strings[third];
+            } else if (third === "0") {
+                return strings[first] + " hundred " + dozens[second];
+            } else {
+                return strings[first] + " hundred " + dozens[second] + " " + strings[third];
+            } 
         }
     }
 }
