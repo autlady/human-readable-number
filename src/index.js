@@ -41,15 +41,8 @@ module.exports = function toReadable (number) {
         const numString = number.toString();
         const dozen = +numString[0];
         const ones = +numString[1];
-        if (number === 20) return dozens[2];
-        if (number === 30) return dozens[3];
-        if (number === 40) return dozens[4];
-        if (number === 50) return dozens[5];
-        if (number === 60) return dozens[6];
-        if (number === 70) return dozens[7];
-        if (number === 80) return dozens[8];
-        if (number === 90) return dozens[9];
-        return dozens[dozen] + strings[ones];
+        if (numString[1] === "0") return dozens[dozen];
+        return dozens[dozen] + " " + strings[ones];
     }
 
     if (number >= 100 && number < 1000) {
@@ -57,9 +50,14 @@ module.exports = function toReadable (number) {
         const first = num[0];
         const second = num[1];
         const third = num[2];
+        const sum = +(second + third);
         if (number >= 100 && number < 1000) {
-            if (second === "0") {
+            if (second === "0" && third === "0") {
+                return strings[first] + " hundred";
+            } else if (second === "0") {
                 return strings[first] + " hundred " + strings[third];
+            } else if (second === "1") {
+                return strings[first] + " hundred " + strings[sum];
             } else if (third === "0") {
                 return strings[first] + " hundred " + dozens[second];
             } else {
